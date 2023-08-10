@@ -5,10 +5,28 @@ from googleapiclient.discovery import build
 api_key = 'AIzaSyB_d69XgLRxeoN__MfEMF93vi6ZqwQkJxo'
 
 # Initialize the YouTube Data API
+from urllib.parse import urlparse, parse_qs
+
+def extract_video_id(url):
+    parsed_url = urlparse(url)
+    
+    if parsed_url.netloc == 'www.youtube.com':
+        if parsed_url.path == '/watch':
+            video_id = parse_qs(parsed_url.query).get('v')
+            if video_id:
+                return video_id[0]
+        elif parsed_url.path.startswith('/embed/'):
+            return parsed_url.path.split('/')[-1]
+    elif parsed_url.netloc == 'youtu.be':
+        return parsed_url.path[1:]
+    
+    return None
 youtube = build('youtube', 'v3', developerKey=api_key)
 
 # Specify the video ID
-video_id = 'vIBHZ7FfWUA'
+url='https://www.youtube.com/watch?v=_KvtVk8Gk1A'
+video_id = extract_video_id(url)
+# https://youtu.be/7UVoCmolAPI
 
 # Retrieve comments from the video
 comments = []

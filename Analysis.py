@@ -15,7 +15,7 @@ model = AutoModelForSequenceClassification.from_pretrained(MODEL)
 filename='comments.txt'
 from random import choice
 lines = [a.strip() for a in open(filename).readlines()]
-result = [choice(lines) for a in range(30)]
+result = [choice(lines) for a in range(10)]
 print("\n\n\n")
 text="".join(result).lower()
 print(text)
