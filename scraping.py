@@ -24,33 +24,34 @@ def extract_video_id(url):
 youtube = build('youtube', 'v3', developerKey=api_key)
 
 # Specify the video ID
-url='https://www.youtube.com/watch?v=_KvtVk8Gk1A'
-video_id = extract_video_id(url)
+# url='https://www.youtube.com/watch?v=_KvtVk8Gk1A'
+# video_id = extract_video_id(url)
 # https://youtu.be/7UVoCmolAPI
 
 # Retrieve comments from the video
-comments = []
-nextPageToken = None
-while True:
-    response = youtube.commentThreads().list(
-        part='snippet',
-        videoId=video_id,
-        textFormat='plainText',
-        maxResults=100,
-        pageToken=nextPageToken
-    ).execute()
+def extract_comment(video_id):
+    comments = []
+    nextPageToken = None
+    while True:
+        response = youtube.commentThreads().list(
+            part='snippet',
+            videoId=video_id,
+            textFormat='plainText',
+            maxResults=100,
+            pageToken=nextPageToken
+        ).execute()
 
-    for item in response['items']:
-        comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
-        comments.append(comment)
+        for item in response['items']:
+            comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
+            comments.append(comment)
 
-    nextPageToken = response.get('nextPageToken')
-    if not nextPageToken:
-        break
+        nextPageToken = response.get('nextPageToken')
+        if not nextPageToken:
+            break
 
-# Save the comments to a file
-with open('comments.txt', 'w', encoding='utf-8') as f:
-    for comment in comments:
-        f.write(comment + '\n')
+    # Save the comments to a file
+    with open('comments.txt', 'w', encoding='utf-8') as f:
+        for comment in comments:
+            f.write(comment + '\n')
 
-print(f'Successfully scraped {len(comments)} comments and saved to "comments.txt".')
+    print(f'Successfully scraped {len(comments)} comments and saved to "comments.txt".')
