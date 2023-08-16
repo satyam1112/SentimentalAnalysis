@@ -6,18 +6,45 @@ from aiohttp import web
 from scraping import extract_comment,extract_video_id
 from aiohttp import web
 from random import choice
-def predict():
+from langdetect import detect
+
+import re
+def remove_non_english_sentences(text):
+    sentences = text.split('\n')  # Split text into sentences (assuming each line is a sentence)
+    english_sentences = [sentence for sentence in sentences if detect(sentence) == 'en']
+    cleaned_text = '\n'.join(english_sentences)
+    return cleaned_text
+def clean_text(text):
+    # Remove emojis
+    text = re.sub(r'[\U0001F600-\U0001F6FF]', '', text)
+    
+    # Remove non-alphanumeric characters and extra spaces
+    text = re.sub(r'[^\w\s]', '', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    
+    # Remove comments with view/like/comment counts
+    text = re.sub(r'\d+k\scomments|\d+milion\slikes|\d+b\sviews', '', text, flags=re.IGNORECASE)
+    
+    # Remove timestamps and irrelevant text
+    text = re.sub(r'\d+:\d+\s(am|pm)|\d+/\d+/\d+\sح/س|master\s?piece|for\swhat\s?exactly', '', text, flags=re.IGNORECASE)
+    
+    return text
+def predict(l):
     MODEL = "cardiffnlp/twitter-roberta-base-sentiment-latest"
     tokenizer = AutoTokenizer.from_pretrained(MODEL)
     config = AutoConfig.from_pretrained(MODEL)
     model = AutoModelForSequenceClassification.from_pretrained(MODEL)
-    filename='comments.txt'
-    
-    lines = [a.strip() for a in open(filename).readlines()]
-    result = [choice(lines) for a in range(10)]
+    # filename='comments.txt'
+    print("List of comments\n",l)
+    # lines = [a.strip() for a in open(filename).readlines()]
+    result = [choice(l) for a in range(40)]
     print("\n\n\n")
-    text="".join(result).lower()
-    # print(text)
+    print("size\n",len(l))
+    text="".join(result)
+    text=clean_text(text)
+    print("Clean text",text)
+    text=remove_non_english_sentences(text)
+    print("Comments text\n",text)
     # res={}
     # max_chunk_size = 512  # Maximum token limit
     # chunks = [text[i:i + max_chunk_size] for i in range(0, len(text), max_chunk_size)]
@@ -59,8 +86,8 @@ async def func(req):
 async def func2(req):
     data = await req.text()
     id=extract_video_id(data)
-    extract_comment(id)
-    res=predict()
+    ls=extract_comment(id)
+    res=predict(ls)
     return web.json_response(res)
     # return web.Response(text=f"Received: {data}") 
 

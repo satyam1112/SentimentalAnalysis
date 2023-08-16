@@ -33,6 +33,8 @@ def extract_comment(video_id):
     comments = []
     nextPageToken = None
     while True:
+        if len(comments)>=500:
+            break;
         response = youtube.commentThreads().list(
             part='snippet',
             videoId=video_id,
@@ -40,11 +42,12 @@ def extract_comment(video_id):
             maxResults=100,
             pageToken=nextPageToken
         ).execute()
+        
 
         for item in response['items']:
             comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
             comments.append(comment)
-
+        
         nextPageToken = response.get('nextPageToken')
         if not nextPageToken:
             break
@@ -55,3 +58,4 @@ def extract_comment(video_id):
             f.write(comment + '\n')
 
     print(f'Successfully scraped {len(comments)} comments and saved to "comments.txt".')
+    return comments
