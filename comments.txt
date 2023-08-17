@@ -1,131 +1,339 @@
-Hi 
-Accuracy is not good when I show replay (video) attack
-Very good videos Felipe, you proved mediapipe? the face and pose recognition is awesome! 
-Where are you from? 
-you sound a little like a "rioplatence" guy :D
-Hello sir, Great tutorial, I really enjoyed following along with the first video as well as this one. However, I am getting an error  this one "Image is not appropriate!!!
-Height/Width should be 4/3.
-Image is not appropriate!!!
-Height/Width should be 4/3.
-Image is not appropriate!!!
-Height/Width should be 4/3.
-Image is not appropriate!!!
-Height/Width should be 4/3."
-Good video sir
-how to face recognition with c#
-Brother, I want to say thank you very much, the program really runs smoothly and perfectly and now all I have to do is integrate this library into my web app which is made with face recognition using face-api.js. thank you very much brother!
-Awesome, thank you very much!
-Super useful video, thanks, can we make a attendance system using this system, where registration can be done with picture repository already available. Thanks
-Superb brother , but you should also make a video to explain how this spoofing works .
-good wishes .
-hello, can I transfer this process to android?
-I chose this project to get my session marks🤩
-Thanks for being such an angel 😊
-Thank you so much 🥰
-Thank you for this! I needed this for a small project and never know how to start since I'm just a beginner programmer.
-why is label printing 2 in my case
-Can I ask a question?
-When I read frames from the camera and saved them for verification, I found that the real face was also judged to be a fake face. But when I use my phone's camera to take a picture to detect the real face, is it because my laptop camera is too low pixel? Is your camera 720P or higher? Can you please tell me what could be the reason for this?
-Hello sir, Great tutorial, I really enjoyed following along with the first video as well as this one. However, I am getting an error after launching in this video's code pertaining to pickle library, tried every possible way to resolve it but am unsuccessful, can you please help in it?                                                
-Exception in Tkinter callback
+Dive into a world of exclusive computer vision content on my Patreon: : https://www.patreon.com/ComputerVisionEngineer
+Hello sir, I want to ask about the dataset, if I have a large dataset, for example about 14 GB. Is there another way besides uploading the dataset to Google Drive? Because my Google Drive capacity is almost full. Thank you.
+I followed all the steps its still not detecting ,how can i restructure this code so that it will fetch images from the folder "import os
+import random
+
+import cv2
+from ultralytics import YOLO
+
+from tracker import Tracker
+
+
+video_path = os.path.join('.', 'data', 'people.mp4')
+video_out_path = os.path.join('.', 'out.mp4')
+
+cap = cv2.VideoCapture(video_path)
+ret, frame = cap.read()
+
+cap_out = cv2.VideoWriter(video_out_path, cv2.VideoWriter_fourcc(*'MP4V'), cap.get(cv2.CAP_PROP_FPS),
+                          (frame.shape[1], frame.shape[0]))
+
+model = YOLO("yolov8n.pt")
+
+tracker = Tracker()
+
+colors = [(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)) for j in range(10)]
+
+detection_threshold = 0.5
+while ret:
+
+    results = model(frame)
+
+    for result in results:
+        detections = []
+        for r in result.boxes.data.tolist():
+            x1, y1, x2, y2, score, class_id = r
+            x1 = int(x1)
+            x2 = int(x2)
+            y1 = int(y1)
+            y2 = int(y2)
+            class_id = int(class_id)
+            if score > detection_threshold:
+                detections.append([x1, y1, x2, y2, score])
+
+        tracker.update(frame, detections)
+
+        for track in tracker.tracks:
+            bbox = track.bbox
+            x1, y1, x2, y2 = bbox
+            track_id = track.track_id
+
+            cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (colors[track_id % len(colors)]), 3)
+
+    cap_out.write(frame)
+    ret, frame = cap.read()
+
+cap.release()
+cap_out.release()
+cv2.destroyAllWindows()"
+Thanks!
+This is a great tutorial, thank you!! :) 
+While I followed all the steps in the video, I did not see any object detected even with 100 epochs. Am I missing something here?? Or are there any rough assumptions on how much-labeled data we need in order to train the model? My case is object detection of cars.
+EN QUE MINUTO HABLA DE COMO SE EXPORTA EL MODELO PARA QUE APARESCA USABLE EN EL VIDEO DE LAS LLAMAS?
+Thanks !!!!!
+is there a way to do some code, in exemple in the video at the end like to say if the model find the alpaga do this or if you dont find it do this but in reel time ? is there a way to retrief a booleen value of is the object is find or no ?
+Hi Felipe , I have run into problem, since I successfully compiled my code but unfortunately it wasn't showing the *runs* folder which leaded to the results, plz help me out.
+How to overcome the '' index error :list index out of range '' during training period, please tell me as soon as possible 🙏
+Your content is amazing loving it❤ 
+But I have facing an error "index error: list index out of range " during the training period 39:00 in video
+Thank you very much for your tutorial, I have one question "How testing YOLOv8 on Google Colab?"
+Hola Felipe, estoy siguiendo tus pasos para entrenar un modelo con mi propio dataset pero para conseguir resultados decentes necesito muchas epocas y realizar el entrenamiento al menos con yolov8m, además son muchas imágenes, por lo que tarda muchísimo. He leido por ahi que puedo utilizar la GPU (con pytorch y cuda) para correr este entrenamiento, pero me da este problema:
+
+RuntimeError: 
+            Attempt to start a new process before the current process
+            has finished its bootstrapping phase.
+            This probably means that you are on Windows and you have
+            forgotten to use the proper idiom in the main module:
+                if __name__ == '__main__':
+                    freeze_support()
+                    ...
+            The "freeze_support()" line can be omitted if the program
+            is not going to be frozen to produce a Windows executable.
+
+Podrías añadir las líneas de código necesarias para correr el código que has usado pero en la GPU para que no me aparezca este error?
+i dont how he got the videos and how hes able to apply the bounding boxes/predictions on them
+Hi Felipe, thank you very much for your tutorial. May I ask you a little question plz? I trained my model also in 100 epoches, but after when I want to test the video, I have a following error:
+
+AttributeError: 
+            'Results' object has no attribute 'names'. Valid 'Results' object attributes and properties are:
+
+            Attributes:
+                boxes (Boxes, optional): A Boxes object containing the detection bounding boxes.
+                masks (Masks, optional): A Masks object containing the detection masks.
+                probs (torch.Tensor, optional): A tensor containing the detection class probabilities.
+                orig_shape (tuple, optional): Original image size.
+
+Could you plz help me on this? Thank you.
+Sir can you suggest me from where can I download medical images with reports.., thank you
+Thanks man
+Hi Felipe! Great video! You've earned a new subscriber.
+
+By the way, I was trying to run your video detection code and got a little confused on what file should I use if I want to use the custom trained model. Ive tried to run the code but it gets no detections. During the training phase, it showed great results and with a 84% accuracy. Could you help me please?
+Thank you very much for the very explanatory video.
+I have a small question. What are the best epochs values for training with the yolov8n.yaml model and for training with yolov8x.yaml?
+the code isn't working
+it gaves me error
+thank u, nice tutorial.
+hey filipe! great video, i just wanted to know how to get the pretrained model in .pt file format
+is there a way get the conf score and the class id from the tracker
+Hi, Please help me from this error ''downloader. py: error: the following arguments are required: image_list'' I've stuck with this while I execute downloader script.
+Hello sir, can you share the code to test the model to the video? I can't find it in the repository you provided. Thank You.
+Hi there! Fantastic tutorial :)
+
+I came across all your steps but un the end I end up with empty predictions (graphs are empty, confusion map is set to 1). Do you have any clue on why this can happen? I am so stuck...
+Great indepth explanation of the entire process. 👍👍
+Hi! I just came across you're tutorial and I love how detailed it is! But if I may ask, do you know how one would do transfer learning in YOLOv8?
+Hola amigo, gracias por tu video, muy explicativo. Yo tengo un dataset de 10000 imagenes para entrenar, me recomiendas un método para anotar automaticamente? Un abrazo, Lucila.
+39:08 at this point…i cannot get the same result as u get when i run the code
+How do  the same with custom  dataset  in  google colab?  How  to  config  google_colab_config.yaml? Where put  it?
+Thank you, you explained so well and detailed.
+Amazing video 😸
+Thank you so much for this tutorial! This was really good and straight forward to everything needed, so thank you really much for all the work you put into this video!
+2 Quick questions - i need to just "add" some objects that yolo shall detect, so i would train my model on the pretrained version, right? 
+second - you sadly didnt show how you "worked" with that model later on. You are not training it over and over again everytime you run python, so i guess you just change the path from model = YOLO("...") to your local path runs/detect/yourtraining ? Is that right? And would that be right if i train on a pretrained model too?
+
+Thank you so much in advance for your awnser! We are playing with python in a small university project and its super interesting! Thanks for explaining everything so well!
+i need to make Yolov8 real-time detection with Youtube video can you help e please?
+results = model.train(data=os.path.join(ROOT_DIR, "config.yaml"), epochs=1)  # train the model 
+this line never runs. Shows error, file does not exist even  though the path is correct and file does exist!
+If somebody is having problem with their config.yaml file, try naming the classes like this:
+names:
+- alpacas
+- lamas
+- whatever class you have
+Instead of rectangular bounding box I need instance segmentation, can you make video on instance segmentation with keypoints for custom datasets, please
+The video doesn’t actually provide a link to the data. The very first utterance is wrong. The scripts are not provided. Do not waste your time.
+I am facing an issue with the detection of the config file. Though both the model training code and the config file are in the same directory it is giving me a file not found error. Can someone pls help?
+how can i detect from live web cam?
+Thank you for sharing. I have question about results of YOLOv8 model , after the training of the model it results in a 3-dimensional confusion matrix taking the background as a class knowing that I have a binary classification my project is classification of preforms whether it is defect or not. What can be the raisaon of appearance of this class "backgroud" and how I can solve it ? if you help me I would be grateful.
+For this tutorial, is it posible to make a nonsquare shape?
+This is fantastic! Excited to give this a shot—appreciate it, mate!
+Great video, I have to train my model with the same camera where the model will be deployed?
+Your video helps me alot.Sir please share ur email
+Anyone get Runtimeerror:Dataset doesn't exist when they try in colab?
+How many epochs do you set up for model to predict in video?
+HELLO SIR!!! GREAT TUTORIAL.
+I am creating an android application, to detect the bounding boxes and getting the coordinates, how can i do so, can you help me out!!
+I have different classes with different folders with it's mask in same classes folder. I want to perform segmentation on that. What can be approaches and codes?
+sir I have faced a problem during execution .its shows runtime error?what is the solotion over it?
+Nice video. Thanks)
+I tried yolov8 for some time, and when I want to try tuning hyperparameters using ray tune, it shows an error, even though I followed the steps provided by ultralytics, can you make a video about tuning yolov8 hyperparameters using ray tune?
+Amazing tutorial and explication, +1 subscriber
+I need to read brazial vehicle plate numbers and save theirs texts. Is it possible to retrieve the texts with yolov8?
+Dude you are great ! At the begining i was struggling with your accent but it ended up well.
+I learned new things from you, such as data annotation, implementing YOLOv8. 
+I am grateful to you.
+bagian detecting video masih belum lengkap 😄, ditunggu kelanjutannya pak 😁🙏
+Great, Thanks :)  👍
+can i use this for road damage detection? to find cracks or potholes??
+I tried this on a custom dataset and my matrix is 100% Type 2 error - how do I fix that?
+
+Also How do I know how many epochs to run for a dataset? For example if I had 10 images how many would I run, or 100 images? @Computer vision engineer
+Hi Felipe! Thank you for your very interesting and detailed video/tutorial for yolov8. But I still have a question about the dataset. In my case, I need to build a video recognition system to recognise some lego constructions that are going to pass in front of a camera. So far so good! However, the legos will always be on the same background (the same colour all the time). So my question is : 
+When creating my data set, do I need to train my model with images of legos completely out of their 'context' (which is this monochrome background)?
+eg: should my dataset only be images of lego constructions that I've predefined with the background that I'm going to encounter in the actual case, or should I also include the predefined constructions in different contexts, such as taking photos of these legos on the grass, in the water, amongst lots of other objects, against another background, etc....
+
+In a way it seems silly to me to want to train a model to recognise something in an image that they will never be confronted with. But on the other hand, just like the way we learn, sometimes it's good to see things outside their classic spectrum to understand and recognise them better.
+
+Thank you in advance for your reply! Have a great day !
+plz help me the errors is   File "C:\Users\Humam\.ipython\pythonProject\pythonProject10\predict_video.py", line 14, in <module>
+    H, W, _ = frame.shape
+              ^^^^^^^^^^^
+Hi I have a question. How we should add the images and txt files on images & labels directories  if we have more that 1 class.
+ex:  classes = 2, create 2 folders of classes in images folder then add images?
+You are just AMAZINGGG !!! sir . Thank you so much :)
+Hello Felipe. I have followed the steps and obtained the results you got. However, my Yolo Weight is not working in my Object Tracking and Detecting Code. 
+Please help. Thanks!
+Good video! one question, How can I determine if the generated model is overfitting?
+Probably silly question but if I just want to retrain a current model to include more specific items would i then load a pretrained model and then follow the rest of this tutorial?
+Hi mr. I want to automate palm tree counting using yolo v8. Can the result of the testing export as shp file so i can generate the coordinate from all the detected tree?
+Have you tried collecting "detection' (of features selected) results in an excel database using event time and other class tags? For example 2:23pm car detected "other features", etc
+Hi, In the example given by Felipe, the bounding boxes are associated to one image and when he moves over to the next image, the window is cleared from the previously drawn bounding boxes and ready for new input (e.g. at 11:14). However, when I do it, the bounding boxes are shown on top of the next image as well but they are out of place. I noticed how the "switch lock property for all" and the "switch hidden property for all" are suddenly toggled on the objects tab on the right side of the screen, but he doesn't click it and it is not explained either. So, I am a bit puzzled. Did anyone else run into this?
+The time that you copied and paste the Python code I got confused and lost track you did not explain what the other files are and why did you make them
+Hi! 
+This was a great intro and really good explanation and it helped me get going with my 'recognize bees' project 🐝
+Thanks for sharing your knowledge and you now got a new subscriber ;-)
+how to download data set in Open Images Dataset
+Many thanks!
+Can anyone please share the complete tutorial or any page on "how to convert yolov8 .pt file to tflite"
+hello all, does anyone know if i am able to use a jetson nano 4GB for this?
+Thank you for your video. It is absolutely amazing that we can have such a great tutorial. Would you please make a detailed tutorial on how to use the model to test real data of video.
+this is the most easy to follow tutorial on customized objects and  I could train it myself for traffic lights. Thank you so much..bless you!
+youre so fluid coherent and elaborate 1 hour felt like 1 minute
+hello sir i have another question, how do i extract the coordinates of the bounding box so i can draw a centroid of the bounding box?
+can someone PLEASE tell me if the metrics (mAP/precision/recall) in the training results are on the validation set?
+It appears that you didn't specify the location of the labels directory in your "config.yaml" file. How did YOLO manage to know about them?
+How to retain my old weights(which were trained by my custom dataset) with my new data set?
+To increase my model accuracy.
+sir i have done custom object detection using yolov5 and annotation using labelimg byt as the final result when i try to run this iam getting error as Can't get attribute 'DetectionModel' on <module 'models.yolo' so can you please help me to solve this
+you are the guuuuuuy❤‍🔥
+@Computer vision engineer  Hi, I was referring your video for one of my projects, it really crisp, clear and quite understandable. I really liked the way you teach! I had a doubt that can we export YOLOv8 to .h5 format?
+hi, thank you for the documentation.
+I have a problem about predict images. i trained my model and predict image grayscale but i come into view error : ValueError: axes don't match array.
+What should I do? I must predict image grayscale.
+Thanks for your video. I like to implement Intel oneapi libraries to optimize model performance. Can you explain that?
+i really like your tutorials , but i have an issue during the custom object training i tried it with google colab and also with pycharm but in the pred. image it doesn't show the prediction neither rectangle box nor name tag. please help bro .................
+Need solution having a problem - bbox_scores[mask_gt] = pd_scores[ind[0], :, ind[1]][mask_gt]  # b, max_num_obj, h*w
+IndexError: index 1 is out of bounds for dimension 1 with size 1
+hello sir, thank you so much for the tutorial, however i have an issue where it couldnt detect anything, i am currently trying to detect a plastic bottle, i managed to obtain around 150 images, how many epochs will be sufficient or should i increase my dataset images?
+Thank you very much for sharing and explanation, Sir.
+How to intasll Yolov8 with support cuda? Please descibe.
+Can you also tell how to train by passing rectangular image size as input
+hi, can i ask yuo which yolov8 version should I choose to train the model on a custom dataset? (yolov8m, yolov8l, ...)
+I have a problem
+I used 100 images 80 training and 20 test with 20 epochs but the results of the confusion matrix and there is only one blue box in the bottom left and everything else is blank, also the images that come as train_batch0.jpg etc. and val_batch0q_labels etc. are well labeled but in the prediction images they are not labeled.
+why could this be the problem?
+Thank you for your video. I'm doing my final project degree with YOLOv8 and I found it really helpfull. However, could you explain how to implement our models on images to visualize the resulting image with the bounding boxes on it?
+great work and thanks for the tutorial , you're the first youtuber I have seen answering everyone's comments . Continue the great work !
+I really like watching your tutorials, you have great energy 🥳 and a good way of teaching the concepts 🤓
+Is it possible to do a prediction of an oriented bounding box instead of just the regular bounding box using YOLOv8? or is it not supported yet?
+Hii, thanks for this tutorial, can you please help me with overlapping and occluded object detection as I"m currently willing to use YOLO for 'peach fruit🍑' detection as my master's thesis work. The problem is that, the fruits are very densely placed and are overlapping and occluded by each other, as well as by the leaves, no one is guiding me properly, so I started getting worried now like how am I supposed to annotate them in this overlapping and occluding scenario, it would be an immense help if you guide me through this...., please do reply
+Amazing tutorial not gonna lie and it worked well for me in a helmet detection project, can you give me information on how to detect data by live webcam in google colab?
+Hello Felipe, I love your channel. I followed your steps to build a detector, but the result was not good. The loss curves were kind of weird and I got no detection on the videos.
+I used 80 images and 30 ephocs, I don't know what could be the problem.
+Saludos desde Argentina!
+Great video, I have a question 
+Does the network work with a Webcam ?
 Traceback (most recent call last):
-  File "C:\Users\KRITI\AppData\Local\Programs\Python\Python39\lib\tkinter\_init.py", line 1885, in __call_
-    return self.func(*args)
-  File "C:\Users\KRITI\PycharmProjects\faceRec\venv\main.py", line 70, in login
-    name = util.recognize(self.most_recent_capture_arr, self.db_dir)
-  File "C:\Users\KRITI\PycharmProjects\faceRec\venv\util.py", line 66, in recognize
-    embeddings = pickle.load(file, encoding='utf-32')
-_pickle.UnpicklingError: invalid load key, '\xff'.
-Hey my from test import test is showing error you can suggest me how to slove that problem
-i have this error 
+  File "C:\Users\Ajit\Anaconda3\envs\yolov8_custom\lib\site-packages\ultralytics\yolo\engine\trainer.py", line 122, in __init__
+    self.data = check_det_dataset(self.args.data)
+  File "C:\Users\Ajit\Anaconda3\envs\yolov8_custom\lib\site-packages\ultralytics\yolo\data\utils.py", line 195, in check_det_dataset
+    data = check_file(dataset)
+  File "C:\Users\Ajit\Anaconda3\envs\yolov8_custom\lib\site-packages\ultralytics\yolo\utils\checks.py", line 292, in check_file
+    raise FileNotFoundError(f"'{file}' does not exist")
+FileNotFoundError: 'dataset.yaml=yolov8n.pt' does not exist
 
- File "C:\Users\Archie\Downloads\face-attendance-system-master\main.py", line 153, in <module>
-    app = App()
-  File "C:\Users\Archie\Downloads\face-attendance-system-master\main.py", line 31, in __init__
-    self.add_webcam(self.webcam_label)
-  File "C:\Users\Archie\Downloads\face-attendance-system-master\main.py", line 44, in add_webcam
-    self.process_webcam()
-  File "C:\Users\Archie\Downloads\face-attendance-system-master\main.py", line 50, in process_webcam
-    img_ = cv2.cvtColor(self.most_recent_capture_arr, cv2.COLOR_BGR2RGB)
-cv2.error: OpenCV(4.6.0) C:\Users\Archie\AppData\Local\Temp\pip-install-6av9zsfo\opencv-python\opencv\modules\imgproc\src\color.cpp:182: error: (-215:Assertion failed) !_src.empty() in function 'cv::cvtColor'
-Cloning into 'Silent-Face-Anti-Spoofing'...
-remote: Enumerating objects: 367, done.
-remote: Total 367 (delta 0), reused 0 (delta 0), pack-reused 367Receiving objects:  98% (360/367), 18.78 MiB | 8.74 MiB/Receiving objects: 100% (367/367), 18.78 MiB | 8.74 MiB/s
-Receiving objects: 100% (367/367), 26.04 MiB | 10.23 MiB/s, done.
-Resolving deltas: 100% (163/163), done.
-error: invalid path 'saved_logs/jobs/Anti_Spoofing_1_80x80/Jul08_12-51-18 /events.out.tfevents.1594183888.old01'
-fatal: unable to checkout working tree
-warning: Clone succeeded, but checkout failed.
-You can inspect what was checked out with 'git status'
-and retry with 'git restore --source=HEAD :/'
-Can I ask a question?
-How can I solve the freeze problem when use face_encodings from face_detection_pythob
-please help me
+The above exception was the direct cause of the following exception:
 
-cv2.error: OpenCV(4.6.0) :-1: error: (-5:Bad argument) in function 'resize'
-> Overload resolution failed:
->  - Can't parse 'dsize'. Input argument doesn't provide sequence protocol
->  - Can't parse 'dsize'. Input argument doesn't provide sequence protocol
-A lot of thanks
-please  i have error with this line from test import test 
+Traceback (most recent call last):
+  File "C:\Users\Ajit\Anaconda3\envs\yolov8_custom\lib\runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\Ajit\Anaconda3\envs\yolov8_custom\lib\runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\Ajit\Anaconda3\envs\yolov8_custom\Scripts\yolo.exe\__main__.py", line 7, in <module>
+  File "C:\Users\Ajit\Anaconda3\envs\yolov8_custom\lib\site-packages\ultralytics\yolo\cfg\__init__.py", line 391, in entrypoint
+Thank you very much for a great tutorial! Great explained and easy to follow. I've now trained a custom model (in Google Colab) for 3 classes. When testing it with unseen pictures, I get good results. If I were to improve my custom model, how do I do that in Google Colab, change the "model = " part and point it to my custom .yaml file? What should I do with my pictures in the train and val folders, keep the old ones that I trained the model on and add the new ones, or empty them and only add new pictures? Should I also add new pictures to the val folder?
+Hello Sir, Great Video.
+Could you please tell where to put "conf" value in python script while using webcam on local machine in realtime condition?
 
-ImportError: cannot import name 'lookup' from 'test' (unknown location)
-can you help
-great video sir
-when I'm trying to clone the anti spoofing I encounter this error:
+thank you
+Dear Tutor, 
+                    Greetings! Today i went through your youtube lecture and tried to down load OpenImage dataset for Alpaca classes. But I encountered an error 'No module named 'awscli'' I reinstalled the module; still, it didn't work. I managed to download the CSV folder, but the dataset folder is blank. Kindly help me out.  I made a virtual env in conda as well as Powershell and install the packages using requirements.txt. Nothing worked.
+Thank you so much SIR!!!
+How to annotate empty images, where there are no objects?
+Hi, is it possible to have 3 label options in annotating the images?
+love the tutorial however I have a problem. it didnt show any predictions after training
+Great video. I still don't understand what's the general purpose of detecting alpacas or any other class from a video or image?
+Sorry I´m from argentina, i didn´t undestand how to save the trained model? how to do that?
+Can we use yolov8 custom model for detecting different models of cars (name, year  etc if labelled properly) ?
+First of all, thank you very much for the videos you make, they help me a lot.
+In addition, I did everything you showed in the video and I want to run the detection I trained on, on a real-time web cam in phcharm
+How can this be done?
+thanks so much ,it was so helpful 
+but I have a question , is there is adiffer if Ididn't use a bound box in annotation and bounded only the exact object itself without any excess or any background -as the it was a segmented - 
+is that will affect anything?
 
-error: invalid path 'saved_logs/jobs/Anti_Spoofing_1_80x80/Jul08_12-51-18 /events.out.tfevents.1594183888.old01'
-fatal: unable to checkout working tree
-warning: Clone succeeded, but checkout failed.
-You can inspect what was checked out with 'git status'
-and retry with 'git restore --source=HEAD :/'
-does this work on Windows 10?
-hi sir firstly thank you for your videos ı watched all of them with pleasure but ı have got a problem with the face-recognition library ı am using macOS and the python version is 3.8
-very great video but some error to run in my system .i can not solve it plz help me .
-How to duplicate in face detection attendance
-Thank you very much dear teacher..
-....
-I have a problem when unknown person come and face detect not say unknown person say the name of someone who known person before..means mixing it how i can solve it please
-Is this servant on the phone? Thanks
-I am facing error in face package requirements == 1.3.0 error how to solve it pls help 🥲
-It is artificial intelligence based face recognition
-Does the spoofing detector work against video input? Will it run on-device only,i.e. no server connection?
-Please, How do i put a logo on the window?
-Sir, could you do tutorial of anti spoofing on java? I have done Face Attendance System using javaCV. And I would like to add Liveness detection on my project. Can you help me solve the issue?
-What algorithm you use , sir ?
-where is the link for the new repository?
-Hi Felipe, Greate video, i have this issue of multiple people appearing in the frame.How can we address this?
-Hi, your demo apps it's great. Can you have an explained what method do you have for this apps. Thanks sir..
-can we mark attendance from mobile also or this is only desktop application
-Very great video, very simple and easy to follow
-Are there by chance any simple way to integrate people wearing face masks along side with this liveness detection?
-Hey i also get an error 😟 this one "Traceback (most recent call last):
-  File "C:\Users\hiwad\PycharmProjects\FaceAttendance\face-attendance-system\main.py", line 11, in <module>
-    from test import test
-ImportError: cannot import name 'test' from 'test' (C:\Users\hiwad\AppData\Local\Programs\Python\Python39\lib\test\__init__.py)"
+question in different way: in annotation for oject detection tasks should I use only the bounding box which is may be rectangular or square?
+Hey, I am facing an issue where evrything's running fine, even my results are also getting saved but still there is ( no detection ) written.! How to resolve this I have tried 2/3 times
+Heyaaa! It's an awesome tutorial! I have a doubt though... now I am getting the output MAP50 for all the classes as a whole. But in my project, there are two classes, how to get the individual mAP50 for each of them? Thanks in advance:)
+Can you please tell me how to calculate the overall accuracy(SHOWING mAP score) of the particular trained yolov7 model in Google colab?
+hello , nice tutorial , a small question how can i get the output of the yolov8 model and send to serial monitor for example
+This tutorial helps a lot, thanks~
+Hey Felipe, thanks for your amazing tutorial on Yolov8. It is the best.  This is my question:  with `epoch=10`,  model is trained.  When  checking  out the output folder `runs/detect/trainX`, training loss is indeed decreasing. But i don't get any positive detection in every prediction on validation pictures `val_batchX_pred.jpg`  Is it due to my epoch number being too low?  If so, what it should be to make a valid detector ?
+hey man, amazing tutorial but whenever I set device to [0,1] or '0,1' or (0,1) is doesn't work and says invalid scalar type?
+can i use this model in a dataset which detect thyroid disease on ultrasound images?
+Oh man you nailed the tutorial 💯
+Thanks for triste vídeo
+How can i display confidence in label?
+How can i get this data set ? 
 
-i use os= Windows 10 and python version 3.9 . 
-If somebody can help please :)
+Thanks for this nice tutorial ❤🎉
+Hi any idea how this task can be done :When working on annotating lines that connect the light sources , i used polyline tool of cvat , annotated all the pairing correctly , downloaded it in yolo format but the text files are empty, which was not the case while drawing boxes around light sources.Any idea where i might be going wrong or how to save annotaions for polylines to detect the lines in image.
+So how should this task can be done?
+I searched many ways but couldn't find any way please look into it .
 
-And Great job you do by the way😄 love the content
-Sir these errors are coming how to resolve it?
- File "c:\Users\Khushi Chhetri\Downloads\face-attendance-system-master\face-attendance-system-master\main.py", line 154, in <module>
-    app = App()
-  File "c:\Users\Khushi Chhetri\Downloads\face-attendance-system-master\face-attendance-system-master\main.py", line 32, in __init__
-    self.add_webcam(self.webcam_label)
-  File "c:\Users\Khushi Chhetri\Downloads\face-attendance-system-master\face-attendance-system-master\main.py", line 45, in add_webcam
-    self.process_webcam()
-  File "c:\Users\Khushi Chhetri\Downloads\face-attendance-system-master\face-attendance-system-master\main.py", line 51, in process_webcam
-    img_ = cv2.cvtColor(self.most_recent_capture_arr, cv2.COLOR_BGR2RGB)
-cv2.error: OpenCV(4.7.0) D:\a\opencv-python\opencv-python\opencv\modules\imgproc\src\color.cpp:182: error: (-215:Assertion failed) !_src.empty() in function 'cv::cvtColor'
-Thank you so much for making these videos, you helped me a lot! This was exactly what I needed for my project
-Can we convert this to Android app using local database like sqlite???
-This video is very helpful thank u so much 😊🙏🏻
-hi, sorry for interrupt again, after i follow all instruction i am able to run the code HOWEVER the tk window remain black. Can i have your contact like email something? i want to show you the screenshot.
-Brilliant videos!! Quite informative and interesting 😊👍
-Hey may I know is it work on Mac as well?
-Thank you so much!. Can you tell me if it is possible to detect only a specific people. Like people wearing a uniform?
-Thank you Sir, for spending time to find solutions to  help the windows users on the previous face attendance project, I am yet to try it out, thank you so much.
-thanks
-Thank you very much, that is awesome!
-Thanks for the video!! Just by chance: Do you know a good course to learn the basics of computer vision? Maybe a MOOC but not coursera or edx.. hahaha one where you learn with theory and projects.. thanks!!!
+Thank you.
+Can you make a video to explain the detection and segmentation functions of running yolov8 on pycharm, how to train the model, and then use the model to predict your own training set? Thanks
+This tutorial was very helpful for me. Thank you! Is it possible to learn more about visual relationships?
+1:39 Looks like two of the same images on the screen 🤣
+Hello teacher, i made everything on my custom data set but now the python script doesnt want to detect any object on a mp4 video, where can a see a masterclass from you where i can learn to test my model?
+Thank you for this channel, your content is very educational and moreover you seem to be a nice person!
+Hi…your videos are really amazing and Informative…Thanks a lot. Actually I am trying to implement a weapon detection using this…and it will be binary classification - normal and weapon…So for annotation process ..Should I annotate the images without weapons as well as label ‘normal’
+As a cv grad student，i wanna say thanks for your tutorial！！！helping me a lot
+so cool
+Amazing tutorials you have here. The best so far for me. But how can i predict a video or some other pictures on google colab?
+Hi, can you make video for detecting objects from floor plan images using yolov8 or TFOD2.0 as i cannot find any resource for that. It will be of great help if you can make a video for that.
+As the floor plan images are not real objects but documented images.
+ThankYou.
+can you tell me how to get the annotated image dataset?
+I don't understand how to run the program code that is in the prepare_data folder.
+Thanks in advance
+Great video by the way.
+Awesome 👍
+Do you have a GPU bro?
+Whether GPU required for this training?
+raise RuntimeError(emojis(f"Dataset '{self.args.data}' error ❌ {e}")) from e 
+RuntimeError: Dataset 'config.yaml' error  'config.yaml' does not exist
+>>> what this mean? I've never see this before
+I am facing the issue when I am going to run the last like of code it shows 
+
+NotImplementedError: A UTF-8 locale is required. Got ANSI_X3.4-1968
+Help, please! How do we export the new YOLOv8 into ONNX so it works with OpenCV? I am having issues importing the ONNX into OpenCV with this new version. Can anyone help me?
+how to get the co-ordinates of the bounding box using yolov8?
+Hey, thank you so much for this great tutorial. You're excellent at explaining things. I have one question: I'm trying to do a prediction on a video (segmentation). When I run the command
+results = model.predict(source="test4.mp4", save=True, hide_labels=False, line_thickness=2, classes=[1,2])
+the video isn't being saved in the runs folder. I tried it too via CLI but it didn't work either. Is it a bug in YOLOv8? I also tried running your video prediction code from your github, but the video won't save either :( It works fine with pictures. Any help would be greatly appreciated :)
+Can you suggest how to save the name of the objects detected in the image in a txt file? I want to get to know the data that is being recognized on the image.
+your video looks good, I will try it for traffic light detection in complex bg on own custom dataset. if possible, please provide a guide line. 
+you can also make a tutorial , which will be cover lot of topics
+Amazing Tutorial :) I've been looking for this exact video for weeks. Big Big Ups. A small question though, how can you extract the IoU and all the other performance metrics (which appear in the train folder as graphs) in a numerical number (like in a .csv or .txt file)?
+If i want to use after all that the api in a node react up how can i do it ,i explain the user will take a picture of an object and i will detect this object so the request is sent to node than to python the problem is i dunno how do i do that in python which framework if i have to put the python script on the cloud im pretty lost
+Thank you for all your efforts, i wanna ask you can you give us a roadmap to learn machine learning  ? 
+Thank you another time
+Thank you sir, you are the best ...Keep up the good work love from india
+Amazing to see that the community is already testing Yolov8, I started to used it the 2nd day after being released and was amazing, a little problematic to get used to the new python API, but amazing.
+
+Now, I have a question for you, and is something I´ve been trying to implement for a while, but couldn´t, is it possible to train a face emotion detection model using yolo? not just with small group of people, but something generalized, like training a yolo model using FER2013 or AffectNet, for example, do you think this is possible?
+
+I tried to do it with Darknet but the accuracy was very low (after 50 epochs)
+Nice Tutorial.Thank you So much. Can you suggest how to save the name of the objects detected in the image in a txt file?
+I'm doing a project where my model will be able to detect PPEs. I'm a beginner so I hope this is good idea to follow this video. Ps you could make a video tutorial 😅
+I used the following line in the terminal to get my predictions: 'yolo task=detect mode=predict model=.../config.pt source=.../test.jpeg'. How do I get the bounding box coordinates instead of the images? I want to apply ocr on them
+AssertionError: train: No labels found in C:\Users\PycharmProjects\pythonProject2\yolo\labels\train.cache
+
+I do not know what I'm doing. Why is it checking train.cache. Seems to create the file then check. What's going wrong.
+Thank you very much for the amazing tutorial please keep making these videos no such material is on YouTube very very helpful for each aspiring student
+Thank you so much for covering different ways to do the job!!!! I've been struggling over the past 2 weeks bcuz every tutorial showed a single method and I kept running into some kind of error each time and had to redo the whole process so many times and downloaded a bunch of useless stuff >.<
+Thanks for the video! Keep at it brother!
+I am an aspiring AI engineer that is currently taking Electrical engineering in college. I am thankful to have found your channel today. I can now binge watch quality computer vision tutorials. 🎉🎉🎉
+Hi, nice tutorial. I really enjoyed it. Is it possible for you to make a multi-label classification tutorial using DL algorithms?

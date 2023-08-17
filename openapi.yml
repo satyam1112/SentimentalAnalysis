@@ -1,0 +1,53 @@
+openapi: 3.0.1
+info:
+  title: SENTIMENT ANALYSIS
+  description: The process of analyzing digital text to determine if the emotional tone of the message is positive, negative, or neutral.
+  version: 2.1.0
+servers:
+  - url: "/"
+paths:
+  /sent_analysis:
+    post:
+      tags:
+        - Sentiment Analysis
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: ""
+      responses:
+        200:
+          description: Success
+        400:
+          description: Bad request
+  /emotion:
+    post:
+      tags:
+        - Emotion Analysis
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: ""
+      responses:
+        200:
+          description: Success
+        400:
+          description: Bad request
+  /spam_ham:
+    post:
+      tags:
+        - SPAM/HAM Analysis
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: ""
+      responses:
+        200:
+          description: Success
+        400:
+          description: Bad request
